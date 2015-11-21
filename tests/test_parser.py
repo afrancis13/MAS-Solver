@@ -1,14 +1,14 @@
 import unittest
 
-from parser import Parser
+from solver.parser.parser import Parser
 
 
 class ParserTest(unittest.TestCase):
 
     def setUp(self):
-        self.test_input_one = 'input_files/test_input_one.in'
-        self.test_input_two = 'input_files/test_input_two.in'
-        self.test_cancer = 'input_files/test_cancer.in'
+        self.test_input_one = 'tests/input_files/test_input_one.in'
+        self.test_input_two = 'tests/input_files/test_input_two.in'
+        self.test_cancer = 'tests/input_files/test_cancer.in'
         self.test_parser_one = Parser(self.test_input_one)
         self.test_parser_two = Parser(self.test_input_two)
         self.test_parser_cancer = Parser(self.test_cancer)
@@ -25,12 +25,13 @@ class ParserTest(unittest.TestCase):
                         [0, 0, 0, 1],
                         [0, 1, 0, 1],
                         [1, 0, 0, 0]]
-        expected_two = [[1 for i in range(15)] for j in range(15)]
+        expected_two = [[0 for i in range(15)] for j in range(15)]
 
         self.assertEqual(observed_one, expected_one)
         self.assertEqual(observed_two, expected_two)
 
-        self.assertRaises(self.test_parser_cancer.generate_matrix(), ValueError)
+        with self.assertRaises(ValueError):
+            self.test_parser_cancer.generate_matrix()
 
 if __name__ == '__main__':
     unittest.main()

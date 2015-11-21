@@ -19,12 +19,12 @@ class Parser(object):
             with open(self.input_file, 'r') as fp:
                 for line in fp:
                     if it == 0:
-                        vertex_count = line
+                        vertex_count = int(line)
                         matrix = [[None for i in range(vertex_count)] for j in range(vertex_count)]
                     else:
                         edges = line.split(' ')
                         for p in range(vertex_count):
-                            matrix[it - 1][p] = edges[p]
+                            matrix[it - 1][p] = int(edges[p])
                     it += 1
 
         return matrix
