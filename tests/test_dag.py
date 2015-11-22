@@ -30,12 +30,15 @@ class DAGSolverTest(unittest.TestCase):
         observed_output_one = DAGSolver(self.matrix_input_one).topological_sort()
         self.assertEquals(observed_output_one, expected_output_one)
 
-        expected_output_dag_one = [1, 2, 3, 4]
+        expected_output_dag_one = [0, 1, 2, 3]
         observed_output_dag_one = DAGSolver(self.matrix_input_dag_one).topological_sort()
         self.assertEquals(observed_output_dag_one, expected_output_dag_one)
 
-        # Could also be linearized as [1, 3, 2, 4, 5, 6, 7] but the algorithm
+        # Could also be linearized as [0, 2, 1, 3, 4, 5, 6] but the algorithm
         # should break ties arbitrarily and this is chosen
-        expected_output_dag_two = [1, 2, 3, 4, 5, 6, 7]
+        expected_output_dag_two = [0, 1, 2, 3, 4, 5, 6]
         observed_output_dag_two = DAGSolver(self.matrix_input_dag_two).topological_sort()
         self.assertEquals(observed_output_dag_two, expected_output_dag_two)
+
+if __name__ == '__main__':
+    unittest.main()

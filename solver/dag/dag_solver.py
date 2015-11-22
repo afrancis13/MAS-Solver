@@ -8,19 +8,19 @@ class DAGSolver(object):
         self.postvisited = [0 for i in range(len(adj_matrix))]
 
     def topological_sort(self):
-        while len(self.unmarked_nodes) > 0:
-            node = self.unmarked_nodes.pop()
-            if self.visit(node) is None:
+        while len(self.nodes) > 0:
+            node = self.nodes.pop()
+            if self.visit(node) == "Cycle Detected":
                 return None
-        return self.sorted_nodes
+        return self.sorted_nodes[::-1]
 
     def visit(self, node):
         if self.is_previsited(node):
-            return None
+            return "Cycle Detected"
         if not self.is_postvisited(node):
             self.previsit(node)
             for adj_node in range(len(self.adj_matrix[node])):
-                if self.adj_matrix[adj_node] == 1:
+                if self.adj_matrix[node][adj_node] == 1:
                     self.visit(adj_node)
             self.postvisit(node)
             self.sorted_nodes.append(node)
