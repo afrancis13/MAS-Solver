@@ -10,13 +10,15 @@ class DAGSolver(object):
     def topological_sort(self):
         while len(self.nodes) > 0:
             node = self.nodes.pop()
-            if self.visit(node) == "Cycle Detected":
+            try:
+                self.visit(node)
+            except ValueError as e:
                 return None
         return self.sorted_nodes[::-1]
 
     def visit(self, node):
-        if self.is_previsited(node):
-            return "Cycle Detected"
+        if self.is_previsited(node) and not self.is_postvisited(node):
+            raise ValueError('Graph is not a DAG.')
         if not self.is_postvisited(node):
             self.previsit(node)
             for adj_node in range(len(self.adj_matrix[node])):
