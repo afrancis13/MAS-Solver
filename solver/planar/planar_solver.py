@@ -1,10 +1,21 @@
 import planarity
+import tarjan import tarjan
 
 
 class PlanarSolver(object):
 
     def __init__(self, adj_matrix):
         self.adj_matrix = adj_matrix
+        self.edges = []
+        self.graph_dictionary = {}
+        for node in range(len(self.adj_matrix)):
+            for adj_node in range(len(adj_matrix[node])):
+                if self.adj_matrix[node][adj_node] == 1:
+                    self.edges.append((node, adj_node))
+                    if node not in self.graph_dictionary:
+                        self.graph_dictionary[node] = [adj_node]
+                    else:
+                        self.graph_dictionary[node].append(adj_node)
 
     def is_planar(self):
         """
@@ -24,16 +35,19 @@ class PlanarSolver(object):
         if num_edges > 3 * num_vertices - 6:
             return False
         else:
-            edges = []
-            for node in self.adj_matrix:
-                for adj_node in node:
-                    if self.adj_matrix[node][adj_node] == 1:
-                        edges.append((node, adj_node))
-            graph = planarity.PGraph(edges)
+            graph = planarity.PGraph(self.edges)
             return graph.is_planar()
 
     def maximum_acyclic_subgraph(self):
         if not self.is_planar():
             return None
         else:
-            return True  # Replace with the algorithm for MAS on planar graphs.
+            # Note: this library gives the strongly connected components in
+            # topological order
+            strongly_connected_components = tarjan(self.graph_dictionary)
+
+            # naive_list = []
+            # for scc in strongly_connected_components:
+            #     for node in scc:
+            #         naive_list.append(node)
+            # return naive_list
