@@ -9,6 +9,7 @@ class ParserTest(unittest.TestCase):
         self.test_input_one = 'tests/input_files/test_input_one.in'
         self.test_input_two = 'tests/input_files/test_input_two.in'
         self.test_cancer = 'tests/input_files/test_cancer.in'
+
         self.test_parser_one = Parser(self.test_input_one)
         self.test_parser_two = Parser(self.test_input_two)
         self.test_parser_cancer = Parser(self.test_cancer)
