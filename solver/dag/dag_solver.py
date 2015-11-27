@@ -1,5 +1,9 @@
 class DAGSolver(object):
-
+    '''
+    An algorithm for linearizing a DAG. Called as a subroutine during
+    any approximation algorithm. Returns an exact solution if and only
+    if the original graph is a DAG.
+    '''
     def __init__(self, adj_matrix):
         self.sorted_nodes = []
         self.nodes = [i for i in range(len(adj_matrix))]
@@ -12,7 +16,7 @@ class DAGSolver(object):
             node = self.nodes.pop()
             try:
                 self.visit(node)
-            except ValueError as e:
+            except ValueError:
                 return None
         return self.sorted_nodes[::-1]
 

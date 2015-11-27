@@ -35,7 +35,7 @@ class TwoApproximationSolver(object):
         cut_one = []
         for i in range(size_cut_one):
             vertex_choice = choice(vertices)
-            vertices.pop(vertex_choice)
+            vertices.remove(vertex_choice)
             cut_one.append(vertex_choice)
         cut_two = vertices
         return cut_one, cut_two

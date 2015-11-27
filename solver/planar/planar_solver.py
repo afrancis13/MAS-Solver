@@ -3,7 +3,9 @@
 
 
 class PlanarSolver(object):
+
     pass
+
     # def __init__(self, adj_matrix):
     #     self.adj_matrix = adj_matrix
     #     self.edges = []
