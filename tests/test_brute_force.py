@@ -18,15 +18,15 @@ class BruteForceTest(unittest.TestCase):
     def test_brute_force(self):
         expected_output_one = [1, 3, 2, 4]
         observed_output_one = \
-            BruteForceSolver(self.test_input_one, self.matrix_input_one).maximum_acyclic_subgraph()
+            BruteForceSolver(self.matrix_input_one).maximum_acyclic_subgraph()
         self.assertEqual(expected_output_one, observed_output_one)
 
         expected_output_cycle = [1, 2, 3, 4]
         observed_output_cycle = \
-            BruteForceSolver(self.test_input_cycle, self.matrix_input_cycle).maximum_acyclic_subgraph()
+            BruteForceSolver(self.matrix_input_cycle).maximum_acyclic_subgraph()
         self.assertEqual(expected_output_cycle, observed_output_cycle)
 
         expected_output_dag_one = [1, 2, 3, 4]
         observed_output_dag_one = \
-            BruteForceSolver(self.test_input_dag_one, self.matrix_input_dag_one).maximum_acyclic_subgraph()
+            BruteForceSolver(self.matrix_input_dag_one).maximum_acyclic_subgraph()
         self.assertEqual(expected_output_dag_one, observed_output_dag_one)
