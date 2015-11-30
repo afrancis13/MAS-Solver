@@ -42,7 +42,7 @@ class FinalSolverTest(unittest.TestCase):
         '''
         random.seed(170)
 
-        expected_output_one = [2, 1, 3, 0]
+        expected_output_one = [0, 2, 1, 3]
         observed_output_one = \
             FinalSolver(self.matrix_input_one).maximum_acyclic_subgraph()
         self.assertEquals(observed_output_one, expected_output_one)
@@ -52,7 +52,7 @@ class FinalSolverTest(unittest.TestCase):
             FinalSolver(self.matrix_input_dag_one).maximum_acyclic_subgraph()
         self.assertEquals(observed_output_dag_one, expected_output_dag_one)
 
-        expected_output_cycle = [3, 0, 1, 2]
+        expected_output_cycle = [0, 1, 2, 3]
         observed_output_cycle = \
             FinalSolver(self.matrix_input_cycle).maximum_acyclic_subgraph()
         self.assertEquals(observed_output_cycle, expected_output_cycle)
@@ -64,12 +64,12 @@ class FinalSolverTest(unittest.TestCase):
             FinalSolver(self.matrix_input_dag_two).maximum_acyclic_subgraph()
         self.assertEquals(observed_output_dag_two, expected_output_dag_two)
 
-        expected_output_nonplanar_one = [1, 2, 3, 9, 10, 11, 13, 4, 5, 6, 7, 12, 8, 0]
+        expected_output_nonplanar_one = [9, 0, 1, 6, 7, 8, 2, 3, 4, 10, 5, 11, 12, 13]
         observed_output_nonplanar_one = \
             FinalSolver(self.matrix_input_nonplanar_one).maximum_acyclic_subgraph()
         self.assertEquals(observed_output_nonplanar_one, expected_output_nonplanar_one)
 
-        expected_output_nonplanar_two = [3, 1, 0, 5, 7, 6, 4, 2]
+        expected_output_nonplanar_two = [5, 0, 7, 6, 4, 3, 1, 2]
         observed_output_nonplanar_two = \
             FinalSolver(self.matrix_input_nonplanar_two).maximum_acyclic_subgraph()
         self.assertEquals(observed_output_nonplanar_two, expected_output_nonplanar_two)

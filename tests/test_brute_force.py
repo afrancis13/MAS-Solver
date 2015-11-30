@@ -16,17 +16,17 @@ class BruteForceTest(unittest.TestCase):
         self.matrix_input_dag_one = Parser(self.test_input_dag_one).generate_matrix()
 
     def test_brute_force(self):
-        expected_output_one = [1, 3, 2, 4]
+        expected_output_one = [0, 2, 1, 3]
         observed_output_one = \
             BruteForceSolver(self.matrix_input_one).maximum_acyclic_subgraph()
         self.assertEqual(expected_output_one, observed_output_one)
 
-        expected_output_cycle = [1, 2, 3, 4]
+        expected_output_cycle = [0, 1, 2, 3]
         observed_output_cycle = \
             BruteForceSolver(self.matrix_input_cycle).maximum_acyclic_subgraph()
         self.assertEqual(expected_output_cycle, observed_output_cycle)
 
-        expected_output_dag_one = [1, 2, 3, 4]
+        expected_output_dag_one = [0, 1, 2, 3]
         observed_output_dag_one = \
             BruteForceSolver(self.matrix_input_dag_one).maximum_acyclic_subgraph()
         self.assertEqual(expected_output_dag_one, observed_output_dag_one)

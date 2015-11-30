@@ -42,7 +42,6 @@ def scoreSolution(inst, sol):
     for i in range(len(inst)):
         e += sum(inst[i])
 
-    sol = map(lambda x: (int(x) - 1), sol)
     count = 0.0
     for i in xrange(N):
         for j in xrange(i + 1, N):

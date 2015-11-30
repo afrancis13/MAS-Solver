@@ -16,7 +16,7 @@ class BruteForceSolver(object):
         self.adj_matrix = adj_matrix
 
     def maximum_acyclic_subgraph(self):
-        vertices = range(1, len(self.adj_matrix) + 1)
+        vertices = range(len(self.adj_matrix))
         vertex_permutations = permutations(vertices)
         max_score = 0
         max_ordering = vertices

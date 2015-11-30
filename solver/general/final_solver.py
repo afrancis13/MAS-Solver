@@ -70,11 +70,10 @@ class FinalSolver(object):
                 scc_solution = scc
                 for i in range(10000):
                     this_solution = two_approx_solver.maximum_acyclic_subgraph()
-                    score = scoreSolution(scc, this_solution)
+                    score = scoreSolution(scc_adj_matrix, this_solution)
                     if score > max_score:
                         max_score = score
                         scc_solution = this_solution
             solution.extend(scc_solution)
 
-        solution = map(lambda x: (int(x) + 1), solution)
         return solution
