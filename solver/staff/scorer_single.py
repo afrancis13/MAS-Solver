@@ -33,23 +33,19 @@ def processTest(inst, sol):
 
 def scoreSolution(inst, sol):
     '''
-    Identical to processTest, but returns the value of the solution.
+    Identical to processTest, but returns the value of the solution,
+    and uses the instance matrix and solution list, instead of files
+    as inputs.
     '''
-    fin = open(inst, "r")
-    N = int(fin.readline().split()[0])
-    d = [[0 for j in range(N)] for i in range(N)]
+    N = len(inst)
     e = 0
-    for i in xrange(N):
-        d[i] = map(int, fin.readline().split())
-        e += sum(d[i])
-
-    fin = open(sol, "r")
-    ans = map(lambda x: (int(x) - 1), fin.readline().split())
+    for i in range(len(inst)):
+        e += sum(inst[i])
 
     count = 0.0
     for i in xrange(N):
         for j in xrange(i + 1, N):
-            if d[ans[i]][ans[j]] == 1:
+            if inst[sol[i]][sol[j]] == 1:
                 count += 1
     return count / e
 
