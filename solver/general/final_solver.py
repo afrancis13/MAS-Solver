@@ -54,13 +54,13 @@ class FinalSolver(object):
         num_vertices = len(self.adj_matrix)
         library_graph = Graph().Adjacency(self.adj_matrix)
 
-        if num_vertices < 15:
+        if num_vertices < 10:
             removed_edges = library_graph.feedback_arc_set(method='ip')
         else:
             removed_edges = library_graph.feedback_arc_set(method='eades')
 
-        library_graph = library_graph.removed_edges(removed_edges)
-        library_graph_adj_matrix = library_graph.get_adjacency()
+        library_graph.delete_edges(removed_edges)
+        library_graph_adj_matrix = library_graph.get_adjacency()._get_data()
         library_graph_dag_solver = DAGSolver(library_graph_adj_matrix)
         solution = library_graph_dag_solver.topological_sort()
 
