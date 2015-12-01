@@ -1,55 +1,52 @@
-# import planarity
-# import tarjan import tarjan
+from graph_tool import Graph
 
 
 class PlanarSolver(object):
 
-    pass
+    def __init__(self, adj_matrix):
+        self.adj_matrix = adj_matrix
 
-    # def __init__(self, adj_matrix):
-    #     self.adj_matrix = adj_matrix
-    #     self.edges = []
-    #     self.graph_dictionary = {}
-    #     for node in range(len(self.adj_matrix)):
-    #         for adj_node in range(len(adj_matrix[node])):
-    #             if self.adj_matrix[node][adj_node] == 1:
-    #                 self.edges.append((node, adj_node))
-    #                 if node not in self.graph_dictionary:
-    #                     self.graph_dictionary[node] = [adj_node]
-    #                 else:
-    #                     self.graph_dictionary[node].append(adj_node)
+    def has_edge(self, graph, vertex_one, vertex_two):
+        return graph[vertex_one][vertex_two] == 1
 
-    # def is_planar(self):
-    #     """
-    #     Uses the following tests to determine if the inputted graph
-    #     is planar or is not planar:
-    #     1. If you have a graph G = (V, E) that is connected and has
-    #        |V| > 2, then if |E| > 3|V| - 6, G is not planar.
-    #     2. Check if graph G has K(5) or K(3,3) as minors,
-    #        return True /False on planarity and nodes of "bad_minor."
-    #        I used an open source project called planarity to do this -
-    #        hopefully their code works.
-    #        https://github.com/hagberg/planarity
-    #     """
-    #     num_vertices = len(self.adj_matrix)
-    #     outgoing_edges = [node.count(1) for node in self.adj_matrix]
-    #     num_edges = reduce(lambda x, y: x + y, outgoing_edges)
-    #     if num_edges > 3 * num_vertices - 6:
-    #         return False
-    #     else:
-    #         graph = planarity.PGraph(self.edges)
-    #         return graph.is_planar()
+    def obtain_edge_list(self):
+        edge_list = []
+        for vertex_one in range(len(self.adj_matrix)):
+            for vertex_two in range(len(self.adj_matrix)):
+                if self.has_edge(self.adj_matrix, vertex_one, vertex_two):
+                    edge_list.append((vertex_one, vertex_two))
+        return edge_list
 
-    # def maximum_acyclic_subgraph(self):
-    #     if not self.is_planar():
-    #         return None
-    #     else:
-    #         # Note: this library gives the strongly connected components in
-    #         # topological order
-    #         strongly_connected_components = tarjan(self.graph_dictionary)
+    def is_planar(self):
+        """
+        See the following library:
+        https://graph-tool.skewed.de/static/doc/topology.html
+        """
+        edges = self.obtain_edge_list()
+        graph = Graph().add_vertex(len(self.adj_matrix)).add_edge_list(edges)
+        return graph.is_planar()
 
-    #         naive_list = []
-    #         for scc in strongly_connected_components:
-    #             for node in scc:
-    #                 naive_list.append(node)
-    #         return naive_list
+    def maximum_acyclic_subgraph(self):
+        """
+        Here's the argument:
+
+        The maximum acyclic subgraph problem can be solved in O(n^3) time
+        in a planar graph. These finding are found in the literature
+        surrounding this problem, namely in Algorithms and Combinitorics 2,
+        and an article which cites that text. Both of these are cited in
+        cited.txt.
+
+        The computation borrows from a brilliant Python library called igraph
+        http://igraph.org/
+
+        It is possible to run an exact computation on small graphs using one
+        method. "Smallness" is defined as having less than 15 nodes. Otherwise,
+        an approximation algorithm is used.
+
+        Note that the problem actually being solved here is the minimum
+        feedback arc set problem, which is equivalent to MAS.
+        """
+        if not self.is_planar():
+            return None
+
+        return None

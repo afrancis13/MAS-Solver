@@ -10,7 +10,10 @@ class PlanarTest(unittest.TestCase):
     def setUp(self):
         pass
 
-    def tests(self):
+    def test_is_planar(self):
+        pass
+
+    def test_planar_solver(self):
         pass
 
 if __name__ == '__main__':

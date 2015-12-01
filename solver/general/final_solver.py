@@ -1,3 +1,4 @@
+from igraph import Graph
 from tarjan import tarjan
 
 from solver.dag.dag_solver import DAGSolver
@@ -49,6 +50,22 @@ class FinalSolver(object):
                     scc_adj_matrix[i][j] = 1
         return scc_adj_matrix
 
+    def obtain_library_solution(self):
+        num_vertices = len(self.adj_matrix)
+        library_graph = Graph().Adjacency(self.adj_matrix)
+
+        if num_vertices < 15:
+            removed_edges = library_graph.feedback_arc_set(method='ip')
+        else:
+            removed_edges = library_graph.feedback_arc_set(method='eades')
+
+        library_graph = library_graph.removed_edges(removed_edges)
+        library_graph_adj_matrix = library_graph.get_adjacency()
+        library_graph_dag_solver = DAGSolver(library_graph_adj_matrix)
+        solution = library_graph_dag_solver.topological_sort()
+
+        return solution
+
     def maximum_acyclic_subgraph(self):
         topo_sort = DAGSolver(self.adj_matrix).topological_sort()
 
@@ -58,6 +75,7 @@ class FinalSolver(object):
         # For some reason, this is returned in reverse order by the algorithm,
         # so reverse to get the topologically sorted SCCs.
         scc_graph = self.find_strongly_connected_components()[::-1]
+
         solution = []
         for scc in scc_graph:
             scc_adj_matrix = self.create_scc_adj_matrix(scc)
@@ -70,10 +88,15 @@ class FinalSolver(object):
                 scc_solution = scc
                 for i in range(10000):
                     this_solution = two_approx_solver.maximum_acyclic_subgraph()
-                    score = scoreSolution(scc_adj_matrix, this_solution)
-                    if score > max_score:
-                        max_score = score
+                    this_score = scoreSolution(scc_adj_matrix, this_solution)
+                    if this_score > max_score:
+                        max_score = this_score
                         scc_solution = this_solution
+                    library_solution = self.obtain_library_solution()
+                    library_score = scoreSolution(scc_adj_matrix, library_solution)
+                    if library_score > max_score:
+                        max_score = library_score
+                        scc_solution = library_solution
             solution.extend(scc_solution)
 
         return solution
