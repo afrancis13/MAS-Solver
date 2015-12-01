@@ -97,6 +97,8 @@ class FinalSolver(object):
                     if library_score > max_score:
                         max_score = library_score
                         scc_solution = library_solution
+
+
             solution.extend(scc_solution)
 
         return solution

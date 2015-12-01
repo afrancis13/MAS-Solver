@@ -8,6 +8,7 @@ from solver.general.final_solver import FinalSolver
 class FinalSolverTest(unittest.TestCase):
 
     def setUp(self):
+        self.test_foster = 'tests/input_files/foster.in'
         self.test_input_one = 'tests/input_files/test_input_one.in'
         self.test_input_dag_one = 'tests/input_files/test_input_dag_one.in'
         self.test_input_dag_two = 'tests/input_files/test_input_dag_two.in'
@@ -15,6 +16,7 @@ class FinalSolverTest(unittest.TestCase):
         self.test_input_nonplanar_one = 'tests/input_files/test_nonplanar_one.in'
         self.test_input_nonplanar_two = 'tests/input_files/test_nonplanar_two.in'
 
+        self.matrix_foster = Parser(self.test_foster).generate_matrix()
         self.matrix_input_one = Parser(self.test_input_one).generate_matrix()
         self.matrix_input_dag_one = Parser(self.test_input_dag_one).generate_matrix()
         self.matrix_input_dag_two = Parser(self.test_input_dag_two).generate_matrix()
@@ -73,6 +75,18 @@ class FinalSolverTest(unittest.TestCase):
         observed_output_nonplanar_two = \
             FinalSolver(self.matrix_input_nonplanar_two).maximum_acyclic_subgraph()
         self.assertEquals(observed_output_nonplanar_two, expected_output_nonplanar_two)
+
+        expected_output_foster = [
+            2, 12, 13, 19, 20, 28, 29, 33, 35, 41, 42, 43, 34, 49,
+            51, 14, 56, 3, 4, 57, 63, 26, 69, 74, 21, 22, 23, 24, 25,
+            75, 38, 39, 40, 77, 60, 61, 62, 52, 53, 36, 37, 78, 5, 6, 79,
+            70, 71, 54, 55, 80, 27, 81, 44, 45, 46, 47, 30, 31, 32, 82,
+            83, 84, 85, 76, 86, 87, 50, 88, 7, 8, 9, 10, 11, 89, 72, 73,
+            64, 65, 66, 67, 68, 15, 16, 17, 18, 58, 59, 48, 0, 1
+        ]
+        observed_output_foster = \
+            FinalSolver(self.matrix_foster).maximum_acyclic_subgraph()
+        self.assertEquals(observed_output_foster, expected_output_foster)
 
 
 if __name__ == '__main__':

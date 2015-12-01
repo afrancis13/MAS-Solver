@@ -47,7 +47,7 @@ def scoreSolution(inst, sol):
         for j in xrange(i + 1, N):
             if inst[sol[i]][sol[j]] == 1:
                 count += 1
-    return count / e
+    return float(count / e)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
