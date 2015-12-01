@@ -9,6 +9,8 @@ class FinalSolverTest(unittest.TestCase):
 
     def setUp(self):
         self.test_foster = 'tests/input_files/foster.in'
+        self.test_connected = 'tests/input_files/connected.in'
+        self.test_new_graph = 'tests/input_files/new_graph.in'
         self.test_input_one = 'tests/input_files/test_input_one.in'
         self.test_input_dag_one = 'tests/input_files/test_input_dag_one.in'
         self.test_input_dag_two = 'tests/input_files/test_input_dag_two.in'
@@ -16,6 +18,8 @@ class FinalSolverTest(unittest.TestCase):
         self.test_input_nonplanar_one = 'tests/input_files/test_nonplanar_one.in'
         self.test_input_nonplanar_two = 'tests/input_files/test_nonplanar_two.in'
 
+        self.matrix_new_graph = Parser(self.test_new_graph).generate_matrix()
+        self.matrix_connected = Parser(self.test_connected).generate_matrix()
         self.matrix_foster = Parser(self.test_foster).generate_matrix()
         self.matrix_input_one = Parser(self.test_input_one).generate_matrix()
         self.matrix_input_dag_one = Parser(self.test_input_dag_one).generate_matrix()
@@ -84,9 +88,16 @@ class FinalSolverTest(unittest.TestCase):
             83, 84, 85, 76, 86, 87, 50, 88, 7, 8, 9, 10, 11, 89, 72, 73,
             64, 65, 66, 67, 68, 15, 16, 17, 18, 58, 59, 48, 0, 1
         ]
-        observed_output_foster = \
-            FinalSolver(self.matrix_foster).maximum_acyclic_subgraph()
-        self.assertEquals(observed_output_foster, expected_output_foster)
+        # observed_output_foster = \
+        #     FinalSolver(self.matrix_foster).maximum_acyclic_subgraph()
+        # self.assertEquals(observed_output_foster, expected_output_foster)
+
+        # observed_output_connected = \
+        #     FinalSolver(self.matrix_connected).maximum_acyclic_subgraph()
+        # print observed_output_connected
+
+        print FinalSolver(self.matrix_new_graph).maximum_acyclic_subgraph()
+        #self.assertEquals(observed_output_foster, expected_output_foster)
 
 
 if __name__ == '__main__':
