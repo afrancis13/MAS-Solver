@@ -1,6 +1,6 @@
 import unittest
 
-from solver.planar.planar_solver import PlanarSolver
+# from solver.planar.planar_solver import PlanarSolver
 
 
 class PlanarTest(unittest.TestCase):

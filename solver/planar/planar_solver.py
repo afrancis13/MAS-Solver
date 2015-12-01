@@ -1,4 +1,4 @@
-from graph_tool import Graph
+# from graph_tool import Graph
 
 
 class PlanarSolver(object):
