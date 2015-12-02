@@ -70,7 +70,7 @@ class FinalSolver(object):
         topo_sort = DAGSolver(self.adj_matrix).topological_sort()
 
         if topo_sort is not None:
-            print "Score is %.4f" % scoreSolution(self.adj_matrix, topo_sort)
+            # print "Score is %.4f" % scoreSolution(self.adj_matrix, topo_sort)
             return topo_sort
 
         # For some reason, this is returned in reverse order by the algorithm,
@@ -98,7 +98,8 @@ class FinalSolver(object):
                     if library_score > max_score:
                         max_score = library_score
                         scc_solution = library_solution
+
             solution.extend(scc_solution)
 
-        print "Score is %.4f" % scoreSolution(self.adj_matrix, solution)
+        # print "Score is %.4f" % scoreSolution(self.adj_matrix, solution)
         return solution

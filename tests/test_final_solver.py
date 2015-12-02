@@ -8,21 +8,23 @@ from solver.general.final_solver import FinalSolver
 class FinalSolverTest(unittest.TestCase):
 
     def setUp(self):
+        self.test_foster = 'tests/input_files/foster.in'
         self.test_input_one = 'tests/input_files/test_input_one.in'
         self.test_input_dag_one = 'tests/input_files/test_input_dag_one.in'
         self.test_input_dag_two = 'tests/input_files/test_input_dag_two.in'
         self.test_input_cycle = 'tests/input_files/test_cycle.in'
         self.test_input_nonplanar_one = 'tests/input_files/test_nonplanar_one.in'
         self.test_input_nonplanar_two = 'tests/input_files/test_nonplanar_two.in'
-        self.test_gerwitz = 'tests/input_files/test_gerwitz.in'
+        self.test_gray = 'tests/input_files/test_gray.in'
 
+        self.matrix_foster = Parser(self.test_foster).generate_matrix()
         self.matrix_input_one = Parser(self.test_input_one).generate_matrix()
         self.matrix_input_dag_one = Parser(self.test_input_dag_one).generate_matrix()
         self.matrix_input_dag_two = Parser(self.test_input_dag_two).generate_matrix()
         self.matrix_input_cycle = Parser(self.test_input_cycle).generate_matrix()
         self.matrix_input_nonplanar_one = Parser(self.test_input_nonplanar_one).generate_matrix()
         self.matrix_input_nonplanar_two = Parser(self.test_input_nonplanar_two).generate_matrix()
-        self.matrix_input_gerwitz = Parser(self.test_gerwitz).generate_matrix()
+        self.matrix_input_gray = Parser(self.test_gray).generate_matrix()
 
     def test_final_solver(self):
         '''
@@ -76,7 +78,28 @@ class FinalSolverTest(unittest.TestCase):
             FinalSolver(self.matrix_input_nonplanar_two).maximum_acyclic_subgraph()
         self.assertEquals(observed_output_nonplanar_two, expected_output_nonplanar_two)
 
-        print FinalSolver(self.matrix_input_gerwitz).maximum_acyclic_subgraph()
+        expected_output_foster = [
+            2, 12, 13, 19, 20, 28, 29, 33, 35, 41, 42, 43, 34, 49,
+            51, 14, 56, 3, 4, 57, 63, 26, 69, 74, 21, 22, 23, 24, 25,
+            75, 38, 39, 40, 77, 60, 61, 62, 52, 53, 36, 37, 78, 5, 6, 79,
+            70, 71, 54, 55, 80, 27, 81, 44, 45, 46, 47, 30, 31, 32, 82,
+            83, 84, 85, 76, 86, 87, 50, 88, 7, 8, 9, 10, 11, 89, 72, 73,
+            64, 65, 66, 67, 68, 15, 16, 17, 18, 58, 59, 48, 0, 1
+        ]
+        observed_output_foster = \
+            FinalSolver(self.matrix_foster).maximum_acyclic_subgraph()
+        self.assertEquals(observed_output_foster, expected_output_foster)
+
+        # expected_output_gray = [
+        #     10, 13, 14, 7, 8, 21, 22, 9, 27, 28, 15, 16, 3, 29, 30, 32, 25,
+        #     26, 36, 11, 38, 31, 42, 17, 46, 33, 34, 35, 47, 18, 19, 20, 48,
+        #     23, 49, 50, 43, 44, 45, 4, 5, 6, 37, 51, 52, 39, 40, 41, 12, 53,
+        #     24, 0, 1, 2
+        # ]
+        # observed_output_gray = \
+        #     FinalSolver(self.matrix_input_gray).maximum_acyclic_subgraph()
+        # self.assertEquals(observed_output_gray, expected_output_gray)
+
 
 if __name__ == '__main__':
     unittest.main()
