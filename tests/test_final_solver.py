@@ -14,6 +14,7 @@ class FinalSolverTest(unittest.TestCase):
         self.test_input_cycle = 'tests/input_files/test_cycle.in'
         self.test_input_nonplanar_one = 'tests/input_files/test_nonplanar_one.in'
         self.test_input_nonplanar_two = 'tests/input_files/test_nonplanar_two.in'
+        self.test_gerwitz = 'tests/input_files/test_gerwitz.in'
 
         self.matrix_input_one = Parser(self.test_input_one).generate_matrix()
         self.matrix_input_dag_one = Parser(self.test_input_dag_one).generate_matrix()
@@ -21,6 +22,7 @@ class FinalSolverTest(unittest.TestCase):
         self.matrix_input_cycle = Parser(self.test_input_cycle).generate_matrix()
         self.matrix_input_nonplanar_one = Parser(self.test_input_nonplanar_one).generate_matrix()
         self.matrix_input_nonplanar_two = Parser(self.test_input_nonplanar_two).generate_matrix()
+        self.matrix_input_gerwitz = Parser(self.test_gerwitz).generate_matrix()
 
     def test_final_solver(self):
         '''
@@ -74,6 +76,7 @@ class FinalSolverTest(unittest.TestCase):
             FinalSolver(self.matrix_input_nonplanar_two).maximum_acyclic_subgraph()
         self.assertEquals(observed_output_nonplanar_two, expected_output_nonplanar_two)
 
+        print FinalSolver(self.matrix_input_gerwitz).maximum_acyclic_subgraph()
 
 if __name__ == '__main__':
     unittest.main()
