@@ -1,8 +1,9 @@
 import unittest
 import random
 
-from solver.staff.scorer_single import scoreSolution
+from solver.parser.parser import Parser
 from solver.general.simulated_annealing import SimulatedAnnealingSolver
+from solver.staff.scorer_single import scoreSolution
 
 
 class SimulatedAnnealingTest(unittest.TestCase):
@@ -33,10 +34,12 @@ class SimulatedAnnealingTest(unittest.TestCase):
         self.initial_ordering_input_gray = [i for i in range(len(self.matrix_input_gray))]
 
     def test_simulated_annealing(self):
-        expected_output_new_graph = []
-        observed_output_new_graph = \
-            SimulatedAnnealingSolver(self.initial_ordering_new_graph, self.matrix_new_graph).maximum_acyclic_subgraph()
-        self.assertEquals(observed_output_new_graph, expected_output_new_graph)
+        random.seed(170)
+
+        # expected_output_new_graph = []
+        # observed_output_new_graph = \
+        #     SimulatedAnnealingSolver(self.initial_ordering_new_graph, self.matrix_new_graph).maximum_acyclic_subgraph()
+        # self.assertEquals(observed_output_new_graph, expected_output_new_graph)
 
         expected_output_foster = []
         observed_output_foster = \

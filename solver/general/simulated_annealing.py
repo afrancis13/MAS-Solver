@@ -1,4 +1,5 @@
 import math
+import matplotlib.pyplot as plt
 
 from random import sample, uniform
 
@@ -7,6 +8,8 @@ from solver.staff.scorer_single import scoreSolution
 
 class SimulatedAnnealingSolver(object):
     '''
+    TODO: Run experiments to find optimal values of T and delta T!
+
     The idea is to  pick an ordering originally and score it using the
     functions provided by the staff. The initial ordering will be generated
     by the library function that calculates an approximate solution to the
@@ -32,26 +35,27 @@ class SimulatedAnnealingSolver(object):
         self.adj_matrix = adj_matrix
         self.ordering = initial_ordering
         self.vertices = [i for i in range(len(self.adj_matrix))]
-        self.t = 1.000
-        self.delta_t = -0.001
+        self.t = 0.005
+        self.delta_t = -0.00000001
 
     def maximum_acyclic_subgraph(self):
         '''
         See the docstring for the class.
         '''
         best_ordering = self.ordering
-        best_score = scoreSolution(self.ordering, self.adj_matrix)
+        best_score = scoreSolution(self.adj_matrix, self.ordering)
+        scores_to_plot = [best_score]
         for i in range(10000):
             flip_one, flip_two = sample(self.vertices, 2)
-            new_ordering = self.ordering
+            new_ordering = self.ordering[::]
             new_ordering[flip_one], new_ordering[flip_two] = new_ordering[flip_two], new_ordering[flip_one]
 
-            initial_score = scoreSolution(self.ordering, self.adj_matrix)
-            new_score = scoreSolution(new_ordering, self.adj_matrix)
+            initial_score = scoreSolution(self.adj_matrix, self.ordering)
+            new_score = scoreSolution(self.adj_matrix, new_ordering)
             delta = new_score - initial_score
 
             if delta <= 0:
-                fractional_exp = float((-1.0 * delta) / self.t)
+                fractional_exp = float(delta / self.t)
                 p = math.exp(fractional_exp)
                 sample_p = uniform(0, 1)
                 if sample_p < p:
@@ -64,5 +68,10 @@ class SimulatedAnnealingSolver(object):
 
             if self.t > 0:
                 self.t -= self.delta_t
+
+            scores_to_plot.append(best_score)
+
+        plt.plot([t for t in range(10001)], scores_to_plot, 'ro')
+        plt.show()
 
         return best_ordering
