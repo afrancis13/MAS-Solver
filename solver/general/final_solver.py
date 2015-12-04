@@ -1,10 +1,12 @@
 from igraph import Graph
 from tarjan import tarjan
+import heapq
 
 from solver.dag.dag_solver import DAGSolver
 from solver.general.brute_force import BruteForceSolver
 from solver.general.two_approx import TwoApproximationSolver
 from solver.staff.scorer_single import scoreSolution
+from solver.general.simulated_annealing import SimulatedAnnealingSolver
 
 
 class FinalSolver(object):
@@ -85,11 +87,14 @@ class FinalSolver(object):
                 brute_force_solver = BruteForceSolver(scc_adj_matrix)
                 scc_solution = brute_force_solver.maximum_acyclic_subgraph()
             else:
+                PQ = []
                 library_solution = self.obtain_library_solution()
                 library_score = scoreSolution(scc_adj_matrix, library_solution)
                 if library_score > max_score:
                     max_score = library_score
                     scc_solution = library_solution
+                
+
                 two_approx_solver = TwoApproximationSolver(scc_adj_matrix)
                 max_score = 0
                 scc_solution = scc
@@ -100,7 +105,28 @@ class FinalSolver(object):
                         max_score = this_score
                         scc_solution = this_solution
 
-            solution.extend(scc_solution)
+                    if len(PQ) < 5: #if PQ still small, add this solution
+                        heapq.heappush(PQ, (-this_score, this_solution))
+                    elif -this_score < heapq.heappop(PQ[0]) #new score better than the worst one so far
+                        heapq.heappushpop(PQ, (-this_score, this_solution))
+
+                #add library solution last so it doesn't get overwritten
+                heapq.push(PQ, (-library_score, library_solution))
+
+                annealing_score = -float('inf')
+                annealing_soln = scc_solution
+                while len(PQ) > 0:
+                    curr_soln = heapq.heappop(PQ)
+                    simulated_annealing_solver = SimulatedAnnealingSolver(curr_soln, scc_adj_matrix)
+                    this_solution = simulated_annealing_solver.maximum_acyclic_subgraph()
+                    this_score = scoreSolution(scc_adj_matrix, this_solution)
+                    if this_score > annealing_score:
+                        annealing_score = this_score
+                        annealing_soln = this_solution
+
+
+            solution.extend(annealing_soln)
+            #solution.extend(scc_solution)
 
         # print "Score is %.4f" % scoreSolution(self.adj_matrix, solution)
         return solution
