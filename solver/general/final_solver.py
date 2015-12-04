@@ -70,6 +70,7 @@ class FinalSolver(object):
         topo_sort = DAGSolver(self.adj_matrix).topological_sort()
 
         if topo_sort is not None:
+            # print "Score is %.4f" % scoreSolution(self.adj_matrix, topo_sort)
             return topo_sort
 
         # For some reason, this is returned in reverse order by the algorithm,
@@ -77,12 +78,18 @@ class FinalSolver(object):
         scc_graph = self.find_strongly_connected_components()[::-1]
 
         solution = []
+
         for scc in scc_graph:
             scc_adj_matrix = self.create_scc_adj_matrix(scc)
             if len(scc_adj_matrix) <= 8:
                 brute_force_solver = BruteForceSolver(scc_adj_matrix)
                 scc_solution = brute_force_solver.maximum_acyclic_subgraph()
             else:
+                library_solution = self.obtain_library_solution()
+                library_score = scoreSolution(scc_adj_matrix, library_solution)
+                if library_score > max_score:
+                    max_score = library_score
+                    scc_solution = library_solution
                 two_approx_solver = TwoApproximationSolver(scc_adj_matrix)
                 max_score = 0
                 scc_solution = scc
@@ -92,14 +99,7 @@ class FinalSolver(object):
                     if this_score > max_score:
                         max_score = this_score
                         scc_solution = this_solution
-                    library_solution = self.obtain_library_solution()
-                    library_score = scoreSolution(scc_adj_matrix, library_solution)
-                    if library_score > max_score:
-                        max_score = library_score
-                        scc_solution = library_solution
-
 
             solution.extend(scc_solution)
 
-        print "Score is %.4f" % scoreSolution(self.adj_matrix, solution)
         return solution
