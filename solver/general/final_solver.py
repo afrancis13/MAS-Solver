@@ -43,7 +43,7 @@ class FinalSolver(object):
         return strongly_connected_components
 
     def create_scc_adj_matrix(self, scc):
-        scc_adj_matrix = [[0 for i in range(len(scc))] for j in range(len(scc))]
+        scc_adj_matrix = [[0 for i in range(len(self.adj_matrix))] for j in range(len(self.adj_matrix))]
         for i in range(len(self.adj_matrix)):
             for j in range(len(self.adj_matrix)):
                 if i in scc and j in scc and self.has_edge(self.adj_matrix, i, j):
