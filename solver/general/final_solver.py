@@ -87,12 +87,14 @@ class FinalSolver(object):
                 brute_force_solver = BruteForceSolver(scc_adj_matrix)
                 scc_solution = brute_force_solver.maximum_acyclic_subgraph()
             else:
+                max_library_score = 0
+                max_library_soln = None
                 PQ = []
                 library_solution = self.obtain_library_solution()
                 library_score = scoreSolution(scc_adj_matrix, library_solution)
-                if library_score > max_score:
-                    max_score = library_score
-                    scc_solution = library_solution
+                if library_score > max_library_score:
+                    max_library_score = library_score
+                    max_library_soln = library_solution
                 
 
                 two_approx_solver = TwoApproximationSolver(scc_adj_matrix)
@@ -101,22 +103,23 @@ class FinalSolver(object):
                 for i in range(10000):
                     this_solution = two_approx_solver.maximum_acyclic_subgraph()
                     this_score = scoreSolution(scc_adj_matrix, this_solution)
-                    if this_score > max_score:
-                        max_score = this_score
-                        scc_solution = this_solution
+                    # if this_score > max_score:
+                    #     max_score = this_score
+                    #     scc_solution = this_solution
 
                     if len(PQ) < 5: #if PQ still small, add this solution
                         heapq.heappush(PQ, (-this_score, this_solution))
-                    elif -this_score < heapq.heappop(PQ[0]) #new score better than the worst one so far
+
+                    elif -this_score < pq[0][1]: #new score better than the worst one so far
                         heapq.heappushpop(PQ, (-this_score, this_solution))
 
                 #add library solution last so it doesn't get overwritten
-                heapq.push(PQ, (-library_score, library_solution))
+                heapq.heappush(PQ, (-max_library_score, max_library_soln))
 
                 annealing_score = -float('inf')
                 annealing_soln = scc_solution
                 while len(PQ) > 0:
-                    curr_soln = heapq.heappop(PQ)
+                    curr_soln = heapq.heappop(PQ)[1]
                     simulated_annealing_solver = SimulatedAnnealingSolver(curr_soln, scc_adj_matrix)
                     this_solution = simulated_annealing_solver.maximum_acyclic_subgraph()
                     this_score = scoreSolution(scc_adj_matrix, this_solution)
