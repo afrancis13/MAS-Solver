@@ -35,8 +35,8 @@ class SimulatedAnnealingSolver(object):
         self.adj_matrix = adj_matrix
         self.ordering = initial_ordering
         self.vertices = [i for i in range(len(self.adj_matrix))]
-        self.t = 0.005
-        self.delta_t = -0.00000001
+        self.t = 0.0005
+        self.delta_t = -0.0000001
 
     def maximum_acyclic_subgraph(self):
         '''
@@ -44,7 +44,11 @@ class SimulatedAnnealingSolver(object):
         '''
         best_ordering = self.ordering
         best_score = scoreSolution(self.adj_matrix, self.ordering)
-        scores_to_plot = [best_score]
+        
+        # If interested in seeing a visualization of the simulated annealing,
+        # uncomment the commented lines in this function.
+        # scores_to_plot = [best_score]
+        
         for i in range(10000):
             flip_one, flip_two = sample(self.vertices, 2)
             new_ordering = self.ordering[::]
@@ -54,9 +58,15 @@ class SimulatedAnnealingSolver(object):
             new_score = scoreSolution(self.adj_matrix, new_ordering)
             delta = new_score - initial_score
 
-            if delta <= 0:
+            if delta < 0:
                 fractional_exp = float(delta / self.t)
                 p = math.exp(fractional_exp)
+
+                sample_p = uniform(0, 1)
+                if sample_p < p:
+                    self.ordering = new_ordering
+            elif delta == 0:
+                p = 0.5
                 sample_p = uniform(0, 1)
                 if sample_p < p:
                     self.ordering = new_ordering
@@ -69,9 +79,9 @@ class SimulatedAnnealingSolver(object):
             if self.t > 0:
                 self.t -= self.delta_t
 
-            scores_to_plot.append(best_score)
+            # scores_to_plot.append(best_score)
 
-        plt.plot([t for t in range(10001)], scores_to_plot, 'ro')
-        plt.show()
+        # plt.plot([t for t in range(10001)], scores_to_plot, 'ro')
+        # plt.show()
 
         return best_ordering
