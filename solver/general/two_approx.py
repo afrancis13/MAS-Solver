@@ -1,4 +1,5 @@
 from random import randint, choice
+from copy import deepcopy
 
 from solver.dag.dag_solver import DAGSolver
 
@@ -68,4 +69,5 @@ class TwoApproximationSolver(object):
         return self.maximum_acyclic_subgraph_helper(graph)
 
     def maximum_acyclic_subgraph(self):
-        return self.maximum_acyclic_subgraph_helper(self.adj_matrix)
+        adj_matrix_copy = deepcopy(self.adj_matrix)
+        return self.maximum_acyclic_subgraph_helper(adj_matrix_copy)
