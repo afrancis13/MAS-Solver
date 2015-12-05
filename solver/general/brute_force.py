@@ -22,6 +22,7 @@ class BruteForceSolver(object):
         max_ordering = vertices
         for permutation in vertex_permutations:
             score = scoreSolution(self.adj_matrix, permutation)
+
             if score > max_score:
                 max_score = score
                 max_ordering = permutation
