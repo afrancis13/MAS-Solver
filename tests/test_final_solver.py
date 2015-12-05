@@ -3,6 +3,7 @@ import unittest
 
 from solver.parser.parser import Parser
 from solver.general.final_solver import FinalSolver
+from solver.staff.scorer_single import scoreSolution
 
 
 class FinalSolverTest(unittest.TestCase):
@@ -48,29 +49,40 @@ class FinalSolverTest(unittest.TestCase):
         '''
         random.seed(170)
 
-        expected_output_one = [0, 2, 1, 3]
+        expected_output_one = [2, 1, 3, 0]
         observed_output_one = \
             FinalSolver(self.matrix_input_one).maximum_acyclic_subgraph()
+        expected_score_one = 0.8
+        observed_score_one = scoreSolution(self.matrix_input_one, observed_output_one)
         self.assertEquals(observed_output_one, expected_output_one)
+        self.assertEquals(observed_score_one, expected_score_one)
 
         expected_output_dag_one = [0, 1, 2, 3]
         observed_output_dag_one = \
             FinalSolver(self.matrix_input_dag_one).maximum_acyclic_subgraph()
+        expected_score_dag_one = 1.0
+        observed_score_dag_one = scoreSolution(self.matrix_input_dag_one, observed_output_dag_one)
         self.assertEquals(observed_output_dag_one, expected_output_dag_one)
+        self.assertEquals(observed_score_dag_one, expected_score_dag_one)
 
-        expected_output_cycle = [0, 1, 2, 3]
+        expected_output_cycle = [3, 0, 1, 2]
         observed_output_cycle = \
             FinalSolver(self.matrix_input_cycle).maximum_acyclic_subgraph()
+        expected_score_cycle = 0.75
+        observed_score_cycle = scoreSolution(self.matrix_input_cycle, observed_output_cycle)
         self.assertEquals(observed_output_cycle, expected_output_cycle)
+        self.assertEquals(observed_score_cycle, expected_score_cycle)
 
         # Could also be linearized as [1, 2, 0, 3, 4, 5, 6] but the algorithm
         # should break ties arbitrarily and this is chosen
         expected_output_dag_two = [1, 0, 2, 3, 4, 5, 6]
         observed_output_dag_two = \
             FinalSolver(self.matrix_input_dag_two).maximum_acyclic_subgraph()
+        expected_score_dag_one = 1.0
+        observed_score_dag_one = scoreSolution(self.matrix_input_dag_two, observed_output_dag_two)
         self.assertEquals(observed_output_dag_two, expected_output_dag_two)
 
-        expected_output_nonplanar_one = [1, 2, 6, 7, 8, 3, 9, 10, 11, 12, 13, 4, 5, 0]
+        expected_output_nonplanar_one = [8, 9, 10, 13, 0, 1, 2, 3, 4, 5, 11, 6, 7, 12]
         observed_output_nonplanar_one = \
             FinalSolver(self.matrix_input_nonplanar_one).maximum_acyclic_subgraph()
         self.assertEquals(observed_output_nonplanar_one, expected_output_nonplanar_one)
