@@ -44,12 +44,12 @@ class SimulatedAnnealingSolver(object):
         '''
         best_ordering = self.ordering
         best_score = scoreSolution(self.adj_matrix, self.ordering)
-        
+
         # If interested in seeing a visualization of the simulated annealing,
         # uncomment the commented lines in this function.
         # scores_to_plot = [best_score]
-        
-        for i in range(10000):
+
+        for i in range(7000):
             flip_one, flip_two = sample(self.vertices, 2)
             new_ordering = self.ordering[::]
             new_ordering[flip_one], new_ordering[flip_two] = new_ordering[flip_two], new_ordering[flip_one]
@@ -81,7 +81,7 @@ class SimulatedAnnealingSolver(object):
 
             # scores_to_plot.append(best_score)
 
-        # plt.plot([t for t in range(10001)], scores_to_plot, 'ro')
+        # plt.plot([t for t in range(7001)], scores_to_plot, 'ro')
         # plt.show()
 
         return best_ordering
