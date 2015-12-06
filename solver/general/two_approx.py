@@ -52,21 +52,22 @@ class TwoApproximationSolver(object):
         linearizing_agent = DAGSolver(graph)
         topo_sort = linearizing_agent.topological_sort()
 
-        if topo_sort is not None:
-            return topo_sort
+        while topo_sort is None:
+            cut_one, cut_two = self.make_cut(graph)
+            edges_one_to_two = self.compute_edges_over_cut(graph, cut_one)
+            edges_two_to_one = self.compute_edges_over_cut(graph, cut_two)
 
-        cut_one, cut_two = self.make_cut(graph)
-        edges_one_to_two = self.compute_edges_over_cut(graph, cut_one)
-        edges_two_to_one = self.compute_edges_over_cut(graph, cut_two)
+            if len(edges_one_to_two) >= len(edges_two_to_one):
+                for vertex_one, vertex_two in edges_two_to_one:
+                    graph[vertex_one][vertex_two] = 0
+            else:
+                for vertex_one, vertex_two in edges_one_to_two:
+                    graph[vertex_one][vertex_two] = 0
 
-        if len(edges_one_to_two) >= len(edges_two_to_one):
-            for vertex_one, vertex_two in edges_two_to_one:
-                graph[vertex_one][vertex_two] = 0
-        else:
-            for vertex_one, vertex_two in edges_one_to_two:
-                graph[vertex_one][vertex_two] = 0
+            linearizing_agent = DAGSolver(graph)
+            topo_sort = linearizing_agent.topological_sort()
 
-        return self.maximum_acyclic_subgraph_helper(graph)
+        return topo_sort
 
     def maximum_acyclic_subgraph(self):
         adj_matrix_copy = deepcopy(self.adj_matrix)

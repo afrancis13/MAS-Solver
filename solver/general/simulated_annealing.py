@@ -49,7 +49,9 @@ class SimulatedAnnealingSolver(object):
         # uncomment the commented lines in this function.
         # scores_to_plot = [best_score]
 
-        for i in range(7000):
+        # print "Running simulated annealing"
+
+        for i in range(5000):
             flip_one, flip_two = sample(self.vertices, 2)
             new_ordering = self.ordering[::]
             new_ordering[flip_one], new_ordering[flip_two] = new_ordering[flip_two], new_ordering[flip_one]
