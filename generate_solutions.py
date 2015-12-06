@@ -4,7 +4,7 @@ from solver.parser.parser import Parser
 from solver.general.final_solver import FinalSolver
 from solver.staff.solutions_validator import processTest 
 
-num_instance_files = 5
+num_instance_files = 330
 output_file 	   = open('./solutions/solutions.out', 'a')
 instance_uri 	   = './instances/'
 
@@ -41,7 +41,7 @@ instanceSizes = [66,100,25,100,10,100,99,100,100,100,100,24,100,100,100,100,
 
 
 def main():
-    for i in range(2, num_instance_files + 1):
+    for i in range(1, num_instance_files + 1):
         try:
             print "Currently analyzing input file " + str(i) + ".in"
             current_instance = instance_uri + str(i) + '.in'
