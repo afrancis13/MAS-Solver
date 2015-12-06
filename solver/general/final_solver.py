@@ -98,7 +98,7 @@ class FinalSolver(object):
                 # print "Finished scoring using library"
 
                 two_approx_solver = TwoApproximationSolver(scc_adj_matrix)
-                for i in range(1000):
+                for i in range(5000):
                     this_solution = two_approx_solver.maximum_acyclic_subgraph()
                     this_score = scoreSolution(scc_adj_matrix, this_solution)
                     # If pq still small, add this solution
@@ -108,7 +108,7 @@ class FinalSolver(object):
                     elif this_score > pq[0][0]:
                         heapq.heappushpop(pq, (this_score, this_solution))
 
-                # print "Finished Two Approximation"
+                print "Finished Two Approximation"
 
                 # Add library solution last so it doesn't get overwritten
                 heapq.heappush(pq, (library_score, library_solution))
@@ -132,6 +132,5 @@ class FinalSolver(object):
 
             solution.extend(scc_solution)
 
-        # import pdb; pdb.set_trace()
         print "Score is %.4f" % scoreSolution(self.adj_matrix, solution)
         return solution

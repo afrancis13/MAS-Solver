@@ -4,7 +4,7 @@ from solver.parser.parser import Parser
 from solver.general.final_solver import FinalSolver
 from solver.staff.solutions_validator import processTest 
 
-num_instance_files = 330
+num_instance_files = 621
 output_file 	   = open('./solutions/solutions.out', 'a')
 instance_uri 	   = './instances/'
 
@@ -41,7 +41,7 @@ instanceSizes = [66,100,25,100,10,100,99,100,100,100,100,24,100,100,100,100,
 
 
 def main():
-    for i in range(1, num_instance_files + 1):
+    for i in range(151, num_instance_files + 1):
         try:
             print "Currently analyzing input file " + str(i) + ".in"
             current_instance = instance_uri + str(i) + '.in'
@@ -62,12 +62,9 @@ def main():
                 print "Successfully wrote the solution to input file " + str(i) + ".in to solutions.out"
             else:
                 print "Ran into a formatting issue with the solution for input file " + str(i) + ".in"
-                import pdb; pdb.set_trace()
-                print processTest(solution_to_validate, instanceSizes[i-1])
                 continue
 
         except Exception as e:
-            import pdb; pdb.set_trace()
             print "Ran into issue with input file " + str(i) + ".in"
             continue
 

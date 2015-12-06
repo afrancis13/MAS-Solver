@@ -1,7 +1,9 @@
-from random import randint, choice
+from random import randint, choice, shuffle
 from copy import deepcopy
 
 from solver.dag.dag_solver import DAGSolver
+
+from solver.staff.scorer_single import scoreSolution
 
 
 class TwoApproximationSolver(object):
@@ -70,5 +72,14 @@ class TwoApproximationSolver(object):
         return topo_sort
 
     def maximum_acyclic_subgraph(self):
-        adj_matrix_copy = deepcopy(self.adj_matrix)
-        return self.maximum_acyclic_subgraph_helper(adj_matrix_copy)
+        # adj_matrix_copy = deepcopy(self.adj_matrix)
+        # return self.maximum_acyclic_subgraph_helper(adj_matrix_copy)
+        vertices = [i for i in range(len(self.adj_matrix))]
+        shuffle(vertices)
+        score_vertices = scoreSolution(self.adj_matrix, vertices)
+        reverse_vertices = vertices[::-1]
+        score_reverse = scoreSolution(self.adj_matrix, reverse_vertices) 
+        if score_vertices > score_reverse:
+            return vertices
+        else:
+            return reverse_vertices

@@ -22,9 +22,10 @@ class Parser(object):
                         vertex_count = int(line)
                         matrix = [[None for i in range(vertex_count)] for j in range(vertex_count)]
                     else:
-                        edges = line.split(' ')
-                        for p in range(vertex_count):
-                            matrix[it - 1][p] = int(edges[p])
+                        if it <= vertex_count:
+                            edges = line.rstrip().split()
+                            for p in range(vertex_count):
+                                matrix[it - 1][p] = int(edges[p])
                     it += 1
 
         return matrix
