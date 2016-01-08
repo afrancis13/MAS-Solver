@@ -1,7 +1,17 @@
-# from graph_tool import Graph
+from graph_tool import Graph
 
 
 class PlanarSolver(object):
+    '''
+    The theory behind using a planar graph solver is explained
+    in the documentation. Unfortunately, the graph_tool and igraph
+    libraries were not cooperating and the programming logic
+    necessary to solve MAS on a planar graph was not parsed through
+    by the team in time for the submission. As it was not required,
+    this solver was abandoned.
+
+    TODO: Finish planar graph solver.
+    '''
 
     def __init__(self, adj_matrix):
         self.adj_matrix = adj_matrix

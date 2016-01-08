@@ -75,8 +75,8 @@ class FinalSolver(object):
             print "Score is %.4f" % scoreSolution(self.adj_matrix, topo_sort)
             return topo_sort
 
-        # For some reason, this is returned in reverse order by the algorithm,
-        # so reverse to get the topologically sorted SCCs.
+        # For some reason, this is returned in reverse order by the algorithm.
+        # So reverse to get the topologically sorted SCCs.
         scc_graph = self.find_strongly_connected_components()[::-1]
 
         solution = []
@@ -95,12 +95,13 @@ class FinalSolver(object):
                 library_solution = self.obtain_library_solution(scc_adj_matrix)
                 library_score = scoreSolution(scc_adj_matrix, library_solution)
 
-                # print "Finished scoring using library"
+                print "Finished scoring using library"
 
                 two_approx_solver = TwoApproximationSolver(scc_adj_matrix)
                 for i in range(5000):
                     this_solution = two_approx_solver.maximum_acyclic_subgraph()
                     this_score = scoreSolution(scc_adj_matrix, this_solution)
+
                     # If pq still small, add this solution
                     # Otherwise, new score better than the worst one so far
                     if len(pq) < 5:
@@ -118,7 +119,10 @@ class FinalSolver(object):
                 while len(pq) > 0:
                     curr_soln = heapq.heappop(pq)
                     curr_ordering = curr_soln[1]
-                    simulated_annealing_solver = SimulatedAnnealingSolver(curr_ordering, scc_adj_matrix)
+                    simulated_annealing_solver = SimulatedAnnealingSolver(
+                        curr_ordering,
+                        scc_adj_matrix
+                    )
                     curr_annealing_solution = simulated_annealing_solver.maximum_acyclic_subgraph()
                     curr_annealing_score = scoreSolution(scc_adj_matrix, curr_annealing_solution)
                     if curr_annealing_score > annealing_score:

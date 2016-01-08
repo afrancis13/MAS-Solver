@@ -24,7 +24,7 @@ def processInput(s):
             return "Line " + str(i + 2) + " must contain N integers."
         for j in xrange(N):
             if not line[j].isdigit():
-                return "Line " + str(i+2) + " must contain N integers."
+                return "Line " + str(i + 2) + " must contain N integers."
             d[i][j] = int(line[j])
             if d[i][j] < 0 or d[i][j] > 1:
                 return "The adjacency matrix must be comprised of 0s and 1s."

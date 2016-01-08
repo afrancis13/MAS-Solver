@@ -38,7 +38,7 @@ class SimulatedAnnealingSolver(object):
         self.t = 0.0005
         self.delta_t = -0.0000001
 
-    def maximum_acyclic_subgraph(self):
+    def maximum_acyclic_subgraph(self, with_plots=False):
         '''
         See the docstring for the class.
         '''
@@ -46,15 +46,19 @@ class SimulatedAnnealingSolver(object):
         best_score = scoreSolution(self.adj_matrix, self.ordering)
 
         # If interested in seeing a visualization of the simulated annealing,
-        # uncomment the commented lines in this function.
-        # scores_to_plot = [best_score]
+        # set with_plots to True. Note: it is best to set this variable to
+        # true only when using this function once, and not while iterating
+        # to improve MAS results.
+        if with_plots:
+            scores_to_plot = [best_score]
 
         print "Running simulated annealing"
 
         for i in range(10000):
             flip_one, flip_two = sample(self.vertices, 2)
             new_ordering = self.ordering[::]
-            new_ordering[flip_one], new_ordering[flip_two] = new_ordering[flip_two], new_ordering[flip_one]
+            new_ordering[flip_one], new_ordering[flip_two] = \
+                new_ordering[flip_two], new_ordering[flip_one]
 
             initial_score = scoreSolution(self.adj_matrix, self.ordering)
             new_score = scoreSolution(self.adj_matrix, new_ordering)
@@ -81,9 +85,11 @@ class SimulatedAnnealingSolver(object):
             if self.t > 0:
                 self.t -= self.delta_t
 
-            # scores_to_plot.append(best_score)
+            if with_plots:
+                scores_to_plot.append(best_score)
 
-        # plt.plot([t for t in range(7001)], scores_to_plot, 'ro')
-        # plt.show()
+        if with_plots:
+            plt.plot([t for t in range(7001)], scores_to_plot, 'ro')
+            plt.show()
 
         return best_ordering
