@@ -48,11 +48,11 @@ class FinalSolverTest(unittest.TestCase):
         6. Test input nonplanar two: https://gyazo.com/1295ad7498c8f80ff7ff260287a8d0ae
         '''
         random.seed(170)
-
+        self.maxDiff = None
         expected_output_one = [2, 1, 3, 0]
         observed_output_one = \
             FinalSolver(self.matrix_input_one).maximum_acyclic_subgraph()
-        expected_score_one = 0.8
+        expected_score_one = 4.0
         observed_score_one = scoreSolution(self.matrix_input_one, observed_output_one)
         self.assertEquals(observed_output_one, expected_output_one)
         self.assertEquals(observed_score_one, expected_score_one)
@@ -60,7 +60,7 @@ class FinalSolverTest(unittest.TestCase):
         expected_output_dag_one = [0, 1, 2, 3]
         observed_output_dag_one = \
             FinalSolver(self.matrix_input_dag_one).maximum_acyclic_subgraph()
-        expected_score_dag_one = 1.0
+        expected_score_dag_one = 3.0
         observed_score_dag_one = scoreSolution(self.matrix_input_dag_one, observed_output_dag_one)
         self.assertEquals(observed_output_dag_one, expected_output_dag_one)
         self.assertEquals(observed_score_dag_one, expected_score_dag_one)
@@ -68,7 +68,7 @@ class FinalSolverTest(unittest.TestCase):
         expected_output_cycle = [3, 0, 1, 2]
         observed_output_cycle = \
             FinalSolver(self.matrix_input_cycle).maximum_acyclic_subgraph()
-        expected_score_cycle = 0.75
+        expected_score_cycle = 3.0
         observed_score_cycle = scoreSolution(self.matrix_input_cycle, observed_output_cycle)
         self.assertEquals(observed_output_cycle, expected_output_cycle)
         self.assertEquals(observed_score_cycle, expected_score_cycle)
@@ -78,50 +78,50 @@ class FinalSolverTest(unittest.TestCase):
         expected_output_dag_two = [1, 0, 2, 3, 4, 5, 6]
         observed_output_dag_two = \
             FinalSolver(self.matrix_input_dag_two).maximum_acyclic_subgraph()
-        expected_score_dag_one = 1.0
+        expected_score_dag_one = 8.0
         observed_score_dag_one = scoreSolution(self.matrix_input_dag_two, observed_output_dag_two)
         self.assertEquals(observed_output_dag_two, expected_output_dag_two)
+        self.assertEquals(observed_score_dag_one, expected_score_dag_one)
 
-        expected_output_nonplanar_one = [8, 9, 10, 13, 0, 1, 2, 3, 4, 5, 11, 6, 7, 12]
+        expected_output_nonplanar_one = [8, 9, 13, 0, 1, 10, 2, 3, 4, 5, 11, 6, 7, 12]
         observed_output_nonplanar_one = \
             FinalSolver(self.matrix_input_nonplanar_one).maximum_acyclic_subgraph()
+        expected_score_nonplanar_one = 19.0
+        observed_score_nonplanar_one = scoreSolution(
+            self.matrix_input_nonplanar_one,
+            observed_output_nonplanar_one
+        )
         self.assertEquals(observed_output_nonplanar_one, expected_output_nonplanar_one)
+        self.assertEquals(observed_score_nonplanar_one, expected_score_nonplanar_one)
 
         expected_output_nonplanar_two = [5, 0, 7, 6, 4, 3, 1, 2]
         observed_output_nonplanar_two = \
             FinalSolver(self.matrix_input_nonplanar_two).maximum_acyclic_subgraph()
+        expected_score_nonplanar_two = 18.0
+        observed_score_nonplanar_two = scoreSolution(
+            self.matrix_input_nonplanar_two,
+            observed_output_nonplanar_two
+        )
         self.assertEquals(observed_output_nonplanar_two, expected_output_nonplanar_two)
+        self.assertEquals(observed_score_nonplanar_two, expected_score_nonplanar_two)
 
-        expected_output_foster = [
-            13, 25, 37, 49, 61, 62, 63, 26, 73, 64, 65, 74, 75, 38, 39, 40, 41,
-            76, 77, 78, 79, 80, 27, 28, 29, 81, 82, 83, 66, 67, 68, 69, 70, 71,
-            84, 85, 86, 87, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 42, 43,
-            44, 45, 46, 47, 48, 30, 31, 32, 33, 34, 35, 36, 14, 15, 16, 17, 18,
-            19, 20, 21, 22, 23, 24, 88, 89, 72, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
-            10, 11, 12
-        ]
         observed_output_foster = \
             FinalSolver(self.matrix_foster).maximum_acyclic_subgraph()
-        self.assertEquals(observed_output_foster, expected_output_foster)
+        expected_score_foster = 126.0
+        observed_score_foster = scoreSolution(self.matrix_foster, observed_output_foster)
+        self.assertEquals(observed_score_foster, expected_score_foster)
 
-        expected_output_gray = [
-            8, 20, 32, 44, 45, 46, 33, 34, 35, 36, 37, 38, 21, 22, 9, 47, 48,
-            23, 49, 50, 51, 10, 11, 52, 39, 40, 41, 42, 43, 12, 13, 14, 53,
-            24, 25, 26, 27, 28, 29, 30, 31, 15, 16, 17, 18, 19, 0, 1, 2, 3,
-            4, 5, 6, 7
-        ]
         observed_output_gray = \
             FinalSolver(self.matrix_input_gray).maximum_acyclic_subgraph()
-        self.assertEquals(observed_output_gray, expected_output_gray)
+        expected_score_gray = 75.0
+        observed_score_gray = scoreSolution(self.matrix_input_gray, observed_output_gray)
+        self.assertEquals(observed_score_gray, expected_score_gray)
 
-        expected_output_new_graph = [
-            34, 35, 36, 39, 26, 27, 28, 29, 30, 31, 37, 32, 33, 38, 9, 10,
-            4, 5, 11, 6, 0, 7, 8, 1, 2, 3, 22, 23, 17, 24, 18, 25, 12, 19,
-            13, 20, 14, 15, 21, 16
-        ]
         observed_output_new_graph = \
             FinalSolver(self.matrix_new_graph).maximum_acyclic_subgraph()
-        self.assertEquals(observed_output_new_graph, expected_output_new_graph)
+        expected_score_new_graph = 55.0
+        observed_score_new_graph = scoreSolution(self.matrix_new_graph, observed_output_new_graph)
+        self.assertEquals(observed_score_new_graph, expected_score_new_graph)
 
 
 if __name__ == '__main__':

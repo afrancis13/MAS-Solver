@@ -8,9 +8,7 @@ from solver.staff.scorer_single import scoreSolution
 
 class SimulatedAnnealingSolver(object):
     '''
-    TODO: Run experiments to find optimal values of T and delta T!
-
-    The idea is to  pick an ordering originally and score it using the
+    The idea is to pick an ordering originally and score it using the
     functions provided by the staff. The initial ordering will be generated
     by the library function that calculates an approximate solution to the
     feedback arc set problem and by the two approximation, which will be run
