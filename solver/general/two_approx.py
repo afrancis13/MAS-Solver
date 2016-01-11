@@ -1,7 +1,9 @@
-from random import randint, choice
+from random import randint, choice, shuffle
 from copy import deepcopy
 
 from solver.dag.dag_solver import DAGSolver
+
+from solver.staff.scorer_single import scoreSolution
 
 
 class TwoApproximationSolver(object):
@@ -41,7 +43,7 @@ class TwoApproximationSolver(object):
         cut_two = vertices
         return cut_one, cut_two
 
-    def maximum_acyclic_subgraph_helper(self, graph):
+    def maximum_acyclic_subgraph_helper_recurse(self, graph):
         '''
         Graph is an adjacency matrix, and is continuously changed.
         Calls make_cut to determine the cut, the computes the edges over each
@@ -69,6 +71,18 @@ class TwoApproximationSolver(object):
 
         return topo_sort
 
+    def maximum_acyclic_subgraph_helper_efficient(self, graph):
+        vertices = [i for i in range(len(graph))]
+        shuffle(vertices)
+        score_vertices = scoreSolution(graph, vertices)
+        reverse_vertices = vertices[::-1]
+        score_reverse = scoreSolution(graph, reverse_vertices)
+        if score_vertices > score_reverse:
+            return vertices
+        else:
+            return reverse_vertices
+
     def maximum_acyclic_subgraph(self):
         adj_matrix_copy = deepcopy(self.adj_matrix)
-        return self.maximum_acyclic_subgraph_helper(adj_matrix_copy)
+        return self.maximum_acyclic_subgraph_helper_recurse(adj_matrix_copy)
+        # return self.maximum_acyclic_subgraph_helper_efficient(adj_matrix_copy)

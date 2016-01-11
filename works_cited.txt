@@ -1,0 +1,17 @@
+1. Algorithms and Combinatorics 2: Geometric Algorithms and Combinatorial Optimization
+   Authors: Grotschel, Lovasz, Schrijver
+   
+   URL: https://www.zib.de/groetschel/pubnew/paper/groetschellovaszschrijver1988.pdf
+
+2. Python iGraph (Minimum Feedback Arc Set Solver)
+
+   URL: http://igraph.org/python/
+
+3. Wolfram Alpha Nonplanar Graphs
+
+   URL: http://mathworld.wolfram.com/NonplanarGraph.html
+
+4. Approximations for the Maximum Acyclic Subgraph Problem
+   Hassin, Rubinstein
+
+   URL: http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.39.7717&rep=rep1&type=pdf

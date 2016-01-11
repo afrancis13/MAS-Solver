@@ -1,12 +1,15 @@
 import sys
 
-# assumes files are well formatted
-# if you have errors, make sure you double check our input and output format 
+# Assumes files are well formatted
+# If you have errors, make sure you double check our input and output format
+
+
 def main(argv):
     if len(argv) != 2:
         print "Usage: python scorer_single.py [path_to_instance] [path_to_answer]"
         return
     print processTest(argv[0], argv[1])
+
 
 def processTest(inst, sol):
     fin = open(inst, "r")
@@ -25,6 +28,7 @@ def processTest(inst, sol):
                 count += 1
     return "solution value is %d" % count
 
+
 def scoreSolution(inst, sol):
     '''
     Identical to processTest, but returns the value of the solution,
@@ -39,6 +43,7 @@ def scoreSolution(inst, sol):
             if inst[sol[i]][sol[j]] == 1:
                 count += 1
     return count
+
 
 if __name__ == '__main__':
     main(sys.argv[1:])

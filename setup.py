@@ -3,9 +3,13 @@ try:
 except ImportError:
     from distutils.core import setup
 
-install_requires = []
+install_requires = [
+    'matplotlib>=1.4.3',
+    'tarjan>=0.2.3.1',
+    'python-igraph>=0.7.1.post6'
+]
 
-with open('README') as f:
+with open('README.rst') as f:
     readme = f.read()
 
 setup(
