@@ -82,7 +82,9 @@ class TwoApproximationSolver(object):
         else:
             return reverse_vertices
 
-    def maximum_acyclic_subgraph(self):
+    def maximum_acyclic_subgraph(self, efficient=False):
         adj_matrix_copy = deepcopy(self.adj_matrix)
-        return self.maximum_acyclic_subgraph_helper_recurse(adj_matrix_copy)
-        # return self.maximum_acyclic_subgraph_helper_efficient(adj_matrix_copy)
+        if efficient:
+            return self.maximum_acyclic_subgraph_helper_efficient(adj_matrix_copy)
+        else:
+            return self.maximum_acyclic_subgraph_helper_recurse(adj_matrix_copy)

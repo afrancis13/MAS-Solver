@@ -24,7 +24,7 @@ def generate_random_dag():
                         adjacency_matrix[i][j + nodes] = 1
             nodes += new_nodes
 
-        file_string = '../../tests/input_files/test_random_dag_size_%d' % size
+        file_string = '../../tests/input_files/test_random_dag_size_%d.in' % size
         file_path = os.path.abspath(file_string)
         adjacency_matrix_to_file(adjacency_matrix, file_path)
 

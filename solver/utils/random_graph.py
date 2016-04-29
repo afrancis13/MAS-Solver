@@ -4,8 +4,8 @@ from random import randint
 from file_utils import adjacency_matrix_to_file
 
 
-SIZES_TO_GENERATE = [100, 1000, 10000]
-DENSITIES = [30, 30, 30, 30, 30]
+SIZES_TO_GENERATE = [10, 12]
+DENSITIES = [30, 30]
 
 
 def generate_random_graph():
@@ -15,10 +15,10 @@ def generate_random_graph():
         for i in range(size):
             for j in range(size):
                 random_density = randint(1, 100)
-                if random_density % 100 < DENSITIES[size_index]:
+                if random_density % 100 < DENSITIES[size_index] and i != j:
                     adjacency_matrix[i][j] = 1
 
-        file_string = '../../tests/input_files/test_random_graph_size_%d' % size
+        file_string = '../../tests/input_files/test_random_graph_size_%d.in' % size
         file_path = os.path.abspath(file_string)
         adjacency_matrix_to_file(adjacency_matrix, file_path)
 

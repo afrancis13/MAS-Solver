@@ -6,15 +6,14 @@ except ImportError:
 install_requires = [
     'matplotlib>=1.4.3',
     'tarjan>=0.2.3.1',
-    'python-igraph>=0.7.1.post6',
-    'igraph>=0.1.11'
+    'python-igraph>=0.7.1.post6'
 ]
 
 with open('README.rst') as f:
     readme = f.read()
 
 setup(
-    name='cs170-project',
+    name='mas-solver',
     version='1.0.0',
     packages=['solver'],
     description='Algorithms Final Project',

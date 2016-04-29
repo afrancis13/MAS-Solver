@@ -52,7 +52,7 @@ class SimulatedAnnealingSolver(object):
 
         print "Running simulated annealing"
 
-        for i in range(10000):
+        for i in range(4000):
             flip_one, flip_two = sample(self.vertices, 2)
             new_ordering = self.ordering[::]
             new_ordering[flip_one], new_ordering[flip_two] = \

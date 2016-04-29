@@ -1,0 +1,25 @@
+Brute Force, |V| = 2: Score = 1.0000, Time = 0.0000
+Brute Force, |V| = 4: Score = 4.0000, Time = 0.0001
+Brute Force, |V| = 8: Score = 14.0000, Time = 0.4071
+DAG, |V| = 4: Score = 3.0000, Time = 0.0001
+DAG, |V| = 7: Score = 8.0000, Time = 0.0001
+DAG, |V| = 20: Score = 46.0000, Time = 0.0002
+DAG, |V| = 100: Score = 1501.0000, Time = 0.0036
+DAG, |V| = 1000: Score = 149517.0000, Time = 0.3223
+Eades Approximation, |V| = 4: Score = 4.0000, Time = 0.0070
+Eades Approximation, |V| = 25: Score = 120.0000, Time = 0.0005
+Eades Approximation, |V| = 100: Score = 1738.0000, Time = 0.0102
+Eades Approximation, |V| = 1000: Score = 158690.0000, Time = 0.5992
+Ip Approximation, |V| = 2: Score = 1.0000, Time = 0.0066
+Ip Approximation, |V| = 4: Score = 4.0000, Time = 0.0045
+Ip Approximation, |V| = 8: Score = 14.0000, Time = 0.0009
+Final Approximation, |V| = 4: Score = 4.0000, Time = 0.0000
+Final Approximation, |V| = 25: Score = 123.0000, Time = 7.7594
+Final Approximation, |V| = 100: Score = 1778.0000, Time = 278.5974
+Simulated Annealing, |V| = 4: Score = 4.0000, Time = 0.0633
+Simulated Annealing, |V| = 25: Score = 121.0000, Time = 0.5828
+Simulated Annealing, |V| = 100: Score = 1769.0000, Time = 7.6214
+Two Approximation, |V| = 4: Score = 4.0000, Time = 0.0007
+Two Approximation, |V| = 25: Score = 93.0000, Time = 0.0055
+Two Approximation, |V| = 100: Score = 1499.0000, Time = 0.2315
+Two Approximation, |V| = 1000: Score = 150105.0000, Time = 301.0935
