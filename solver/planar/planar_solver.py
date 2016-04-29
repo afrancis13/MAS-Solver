@@ -10,7 +10,7 @@ class PlanarSolver(object):
     by the team in time for the submission. As it was not required,
     this solver was abandoned.
 
-    TODO: Finish planar graph solver.
+    TODO: Finish planar graph solver. Incomplete.
     '''
 
     def __init__(self, adj_matrix):

@@ -1,6 +1,7 @@
+import heapq
+
 from igraph import Graph
 from tarjan import tarjan
-import heapq
 
 from solver.dag.dag_solver import DAGSolver
 from solver.general.brute_force import BruteForceSolver
@@ -52,11 +53,11 @@ class FinalSolver(object):
                     scc_adj_matrix[i][j] = 1
         return scc_adj_matrix
 
-    def obtain_library_solution(self, scc_adj_matrix):
+    def obtain_library_solution(self, scc_adj_matrix, force_ip=False, force_eades=False):
         num_vertices = len(scc_adj_matrix)
         library_graph = Graph().Adjacency(scc_adj_matrix)
 
-        if num_vertices < 10:
+        if not force_eades and (num_vertices < 10 or force_ip):
             removed_edges = library_graph.feedback_arc_set(method='ip')
         else:
             removed_edges = library_graph.feedback_arc_set(method='eades')
@@ -98,7 +99,7 @@ class FinalSolver(object):
                 print "Finished scoring using library"
 
                 two_approx_solver = TwoApproximationSolver(scc_adj_matrix)
-                for i in range(5000):
+                for i in range(1000):
                     this_solution = two_approx_solver.maximum_acyclic_subgraph()
                     this_score = scoreSolution(scc_adj_matrix, this_solution)
 
