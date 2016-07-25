@@ -3,7 +3,7 @@ def adjacency_matrix_to_file(adj_matrix, file_string):
         [str(adj_matrix[i][j]) for j in range(len(adj_matrix))]
         for i in range(len(adj_matrix))
     ]
-    with open(file_string, 'a+') as target:
+    with open(file_string, 'w+') as target:
         target.write(str(len(adj_matrix)) + '\n')
         for i in range(len(string_adj_matrix)):
             line = string_adj_matrix[i]

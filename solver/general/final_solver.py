@@ -99,13 +99,13 @@ class FinalSolver(object):
                 print "Finished scoring using library"
 
                 two_approx_solver = TwoApproximationSolver(scc_adj_matrix)
-                for i in range(1000):
+                for i in range(15000):
                     this_solution = two_approx_solver.maximum_acyclic_subgraph()
                     this_score = scoreSolution(scc_adj_matrix, this_solution)
 
                     # If pq still small, add this solution
                     # Otherwise, new score better than the worst one so far
-                    if len(pq) < 5:
+                    if len(pq) < 20:
                         heapq.heappush(pq, (this_score, this_solution))
                     elif this_score > pq[0][0]:
                         heapq.heappushpop(pq, (this_score, this_solution))
